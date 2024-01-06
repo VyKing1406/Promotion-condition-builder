@@ -1,0 +1,176 @@
+GET SALE PROMOTION
+------------------------ GET: http://localhost:8080/promotions --------------------------
+{
+    "cart": {
+        "total_amount": 10000
+    },
+    "people": {
+        "full_name": "Nhung",
+        "job": "Giáo viên"
+    },
+    "product": {
+        "categories": "Laptop",
+        "price": 111000
+    },
+    "place": {
+        "brand": "DMX"
+    },
+    "time": {
+        "current": "2023-12-23"
+    },
+    "payment": {}
+}
+
+CREATE RULE FILE
+-------------------- POST: http://localhost:8080/rule -------------------------------
+{
+    "name": "123456",
+    "description": "Đây là chương trình khuyến mãi",
+    "condition": {
+        "operator": "&&",
+        "type": "logic",
+        "children": [
+            {
+                "operator": "||",
+                "type": "logic",
+                "value": [],
+                "children": [
+                    {
+                        "operator": "ends_with",
+                        "object": "people",
+                        "property": "full_name",
+                        "property_type": "string",
+                        "type": "condition",
+                        "value": [
+                            {
+                                "value": "Quỳnh Ngân Hồ"
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "operator": "is_listed",
+                        "object": "place",
+                        "property": "brand",
+                        "property_type": "list string",
+                        "type": "condition",
+                        "value": [
+                            {
+                                "value": "Bách hóa xanh"
+                            },
+                            {
+                                "value": "Thế giới di động"
+                            },
+                            {
+                                "value": "Điện máy xanh"
+                            }
+                        ],
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "operator": "is",
+                "object": "product",
+                "property": "price",
+                "property_type": "number",
+                "type": "condition",
+                "value": [
+                    {
+                        "value": "14590000"
+                    }
+                ],
+                "children": []
+            }
+        ]
+    }
+}
+
+ENRICHDATA
+-------------------- GET: http://localhost:8080/enrich-data -------------------------------
+{
+    "cart": {
+        "total_amount": 73160000
+    },
+    "people": {
+        "full_name": "Quỳnh Ngân Hồ",
+        "id_number": "685944058548",
+        "phone_number": "025 6191 3475",
+        "birth": "1980-10-04T17:00:00.000+00:00",
+        "age_group": "Người trưởng thành",
+        "job": "Nhân viên chăm sóc khách hàng",
+        "rank": "Bạc",
+        "first_time": true
+    },
+    "product": [
+        {
+            "product_id": "1073200001099",
+            "price": 21990000,
+            "manufacturer_name": "Apple",
+            "categories": "Điện thoại",
+            "business_status": "Đang kinh doanh",
+            "product_status": "Có hàng",
+            "color": "Tím Thanh",
+            "expiry_date": "2077-08-07T15:05:20.8",
+            "manufacturing_date": "2023-04-11T22:12:49.769"
+        },
+        {
+            "product_id": "1073200001119",
+            "price": 14590000,
+            "manufacturer_name": "Apple",
+            "categories": "Tablet",
+            "business_status": "Đang kinh doanh",
+            "product_status": "Có hàng",
+            "color": "Tím Nhạt",
+            "expiry_date": "2073-11-06T23:28:19.708",
+            "manufacturing_date": "2023-01-02T06:18:02.7"
+        }
+    ],
+    "place": {
+        "store_name": "Bách hóa xanh",
+        "region_name": "Đồng bằng sông Cửu Long",
+        "province_name": "Vĩnh Long",
+        "brand": "Bách hóa xanh",
+        "size_type": "Siêu nhỏ",
+        "channel_name": "TikTok"
+    },
+    "time": {
+        "current": "2023-12-15T10:09:25.9412055+07:00",
+        "event_type": [
+            "Đại lễ"
+        ],
+        "event_name": [
+            "Ngày demo"
+        ],
+        "day_in_week": 5,
+        "day": 15,
+        "month": 12,
+        "year": 2023
+    },
+    "payment": {
+        "payment_method": "Tiền mặt",
+        "payment_type": "Trả góp",
+        "installment_partner": "Momo",
+        "prepay_amount": 1000000,
+        "period": 7
+    }
+}
+
+GET PROMOTION
+-------------------- GET: http://localhost:8080/cart_promotion -------------------------------
+{
+    "people_id": "751be271-f5ce-4ba4-8107-62f64255543b",
+    "products": [
+        {
+            "product_id": "1073200001099",
+            "quantity": 2
+        },
+         {
+            "product_id": "1073200001119",
+            "quantity": 2
+        }
+    ],
+    "place_id": "d232c6ee-0041-4d6a-87bd-7eaf8c3f56fc",
+    "payment_id": "7ffbbfbb-1d64-4f5f-94b7-a0437c71af05",
+    "partner_id":"67f5cd15-4d26-4b8c-8ad2-27021ea37e92"
+}

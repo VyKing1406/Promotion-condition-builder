@@ -1,0 +1,23 @@
+package rules;
+dialect  "mvel"
+import promotion.com.conditionbuilder.dto.OrderDto
+global promotion.com.conditionbuilder.dto.OrderContainerDto promotionList;
+import promotion.com.conditionbuilder.dto.SalePromotion;
+import promotion.com.conditionbuilder.operatorCustom.OperatorCustom;
+import promotion.com.conditionbuilder.dto.ProductDto
+import promotion.com.conditionbuilder.dto.OrderCartDto;
+
+rule "Flash Sale tháng 11"
+	when
+		$order: OrderDto()
+		$product: ProductDto()
+
+		eval((OperatorCustom.between($order.time.current,["2023-11-16T00:00:00+07:00","2023-11-30T23:59:59+07:00"])
+		&& OperatorCustom.between($order.cart.total_amount,[2000000,5000000])))
+
+  then
+    SalePromotion salePromotion = new SalePromotion();
+    salePromotion.setPromotion_id("02817621-3521-40b7-9541-995f588a3af9");
+    salePromotion.setPromotion_type("cart");
+    promotionList.addSale(salePromotion);
+end

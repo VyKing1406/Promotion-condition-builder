@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+}
+
+.ant-tree-list-holder-inner {
+  width: 1024px;
+}
+
+.ant-tree-treenode,
+.ant-tree-title,
+.ant-motion-collapse-leave,
+.ant-motion-collapse-appear {
+  width: 100%;
+}
+
+.ant-tree-node-content-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
